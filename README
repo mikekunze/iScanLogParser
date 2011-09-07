@@ -1,0 +1,7 @@
+this is a shell application intended to parse out the Metrics.txt file from an Illumina iScan beadChip and its sections.
+
+There are specific conditions that need to be met in order for a section to pass a scan.  These variables have been defined by Illumina contacts.
+
+End goal is to append Express to this and have a webserver hosting jade success/failure reports.
+
+This is still very much a work in progress.
