@@ -68,6 +68,7 @@ var listMetrics = function() {
 };
 
 var scanMetrics = function() {
+  beadChips = [];
 
   var singleScan = function(file, callback) {
     beadChips.push(new beadChip(file));
@@ -82,25 +83,24 @@ var scanMetrics = function() {
 
 var menu = function() {
 
-  var list = ['listDirs', 'populateMetrics', 'listMetrics', 'scanMetrics', 'show1Metric', 'quit'];
+  var list = ['listMetricsFiles', 'scanMetricsFiles', 'showMetric', 'quit'];
 
   console.log('\nChoose an option: ');
   com
     .choose(list, function(i) { 
 
-      if(list[i] == "listDirs")
-        listDir();
-      if(list[i] == "populateMetrics")
-        populateMetrics();
-      if(list[i] == "listMetrics")
+      if(list[i] == "listMetricsFiles")
         listMetrics();
-      if(list[i] == "scanMetrics")
+      if(list[i] == "scanMetricsFiles")
         scanMetrics();
-      if(list[i] == "show1Metric")
-        beadChips[0].readRows(menu);
+      if(list[i] == "showMetric") {
+        com.prompt('metricIndex: ', Number, function(index) {
+          beadChips[index].readRows(menu);
+        });
+      }
       if(list[i] == "quit")
         process.exit();
     });
 };
 
-menu();
+populateMetrics();

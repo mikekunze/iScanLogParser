@@ -20,7 +20,7 @@ beadChip.prototype.buildBeadChip = function(rows, sections) {
   async.forEach(rows, parseSection, function(err) {
     if(err) console.log(err);
 
-    console.log(sections);
+    console.log(sections.length + ' sections created for beadChip ' + sections[1][1]);
   });
 };
 
@@ -68,12 +68,10 @@ beadChip.prototype.init = function(file) {
 
 beadChip.prototype.readRows = function(callback) {
 
-  var rows = this.rows;
+  var sections = this.sections;
 
-  console.log(rows[0].split('\t'));
-  console.log(rows[1].split('\t'));
-  console.log(rows[4].split('\t'));
-
+  console.log(sections);
+  console.log(sections.length + ' rows');
   callback();
 };
 
