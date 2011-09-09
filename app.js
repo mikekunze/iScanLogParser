@@ -49,8 +49,8 @@ var populateMetrics = function() {
 
     async.forEach(files, addMetric, function(err) {
       if(err) console.log(err);
-      console.log(metricsFiles.length + ' metric files found\n');
-      menu();
+      console.log('************************\n' + metricsFiles.length + ' metric files found');
+      scanMetrics(menu);
     });
   });
 };
@@ -67,7 +67,7 @@ var listMetrics = function() {
   menu();
 };
 
-var scanMetrics = function() {
+var scanMetrics = function(menu) {
   beadChips = [];
 
   var singleScan = function(file, callback) {
@@ -76,28 +76,53 @@ var scanMetrics = function() {
   };
 
   async.forEach(metricsFiles, singleScan, function(err) {
-    console.log(beadChips.length + ' beadchips initialized\n'); 
+    console.log(beadChips.length + ' beadchips initialized\n************************'); 
     menu();
   });
 };
 
+var listBeadChips = function() {
+  var forBeadChips = function(beadChip, callback) {
+    console.log('beadChip: ' + beadChip.sections[0][1] + ' sections: ' + beadChip.sections.length);
+    callback();
+  };
+
+  async.forEach(beadChips, forBeadChips, function(err) {
+    if(err) console.log(err);
+    menu();
+  });
+
+};
+
 var menu = function() {
 
-  var list = ['listMetricsFiles', 'scanMetricsFiles', 'showMetric', 'quit'];
+  var list = ['listMetricsFiles', 'listBeadChips', 'showMetric', 'quit'];
 
-  console.log('\nChoose an option: ');
+  console.log('Choose an option: ');
   com
     .choose(list, function(i) { 
 
       if(list[i] == "listMetricsFiles")
         listMetrics();
-      if(list[i] == "scanMetricsFiles")
-        scanMetrics();
       if(list[i] == "showMetric") {
-        com.prompt('metricIndex: ', Number, function(index) {
-          beadChips[index].readRows(menu);
+        com.prompt('BeadChip ID: ', Number, function(index) {
+
+          beadChips.forEach(function(beadChip) {
+            if(beadChip.sections[0][1] == index) {
+              console.log('beadChip: ' + index + ' has ' + beadChip.sections.length + ' sections');
+              console.log('first section: ');
+              console.log(beadChip.sections[0]);
+              console.log('last section: ');
+              console.log(beadChip.sections[beadChip.sections.length - 1]);
+            }
+          });
+          menu();
         });
       }
+
+      if(list[i] == "listBeadChips")
+        listBeadChips();
+
       if(list[i] == "quit")
         process.exit();
     });

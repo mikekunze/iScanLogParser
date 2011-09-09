@@ -12,15 +12,21 @@ beadChip.prototype.buildBeadChip = function(rows, sections) {
 
   var parseSection = function(section, callback) {
 
-    section = section.split('\t');
-    sections.push(section);
+    var sectionArray = section.split('\t');
+    if(sectionArray.length < 2) {
+      return; 
+    } 
+
+    if(sectionArray[0] != "Date") {
+      sections.push(sectionArray);
+      callback();
+    }
+
     callback();
   };
 
   async.forEach(rows, parseSection, function(err) {
     if(err) console.log(err);
-
-    console.log(sections.length + ' sections created for beadChip ' + sections[1][1]);
   });
 };
 
