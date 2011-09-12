@@ -83,7 +83,8 @@ var scanMetrics = function(menu) {
 
 var listBeadChips = function() {
   var forBeadChips = function(beadChip, callback) {
-    console.log('beadChip: ' + beadChip.sections[0].beadChip + ' sections: ' + beadChip.sections.length);
+    console.log('beadChip: ' + beadChip.sections[0].beadChip + ', sections: ' + beadChip.sections.length + 
+      ', pass: ' + beadChip.pass.length + ', fail: ' + beadChip.fail.length);
     callback();
   };
 
