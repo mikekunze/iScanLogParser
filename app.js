@@ -83,7 +83,7 @@ var scanMetrics = function(menu) {
 
 var listBeadChips = function() {
   var forBeadChips = function(beadChip, callback) {
-    console.log('beadChip: ' + beadChip.sections[0][1] + ' sections: ' + beadChip.sections.length);
+    console.log('beadChip: ' + beadChip.sections[0].beadChip + ' sections: ' + beadChip.sections.length);
     callback();
   };
 
@@ -108,7 +108,7 @@ var menu = function() {
         com.prompt('BeadChip ID: ', Number, function(index) {
 
           beadChips.forEach(function(beadChip) {
-            if(beadChip.sections[0][1] == index) {
+            if(beadChip.sections[0].beadChip == index) {
               console.log('beadChip: ' + index + ' has ' + beadChip.sections.length + ' sections');
               console.log('first section: ');
               console.log(beadChip.sections[0]);
